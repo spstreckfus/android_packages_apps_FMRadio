@@ -15,11 +15,14 @@
      limitations under the License.
 -->
 
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.android.fmradio"
     android:sharedUserId="android.uid.system"
     android:versionCode="2"
-    android:versionName="2.0" >
+    android:versionName="2.0"
+    tools:ignore="ProtectedPermissions" >
 
     <!-- FM uses AudioPatch which is new in sdk 21 -->
     <uses-sdk
@@ -57,6 +60,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".FmFavoriteActivity"
             android:configChanges="screenSize"
@@ -86,6 +90,7 @@
             android:theme="@style/LightTheme"
             android:launchMode="singleTask" >
         </activity>
+
     </application>
 
 </manifest>
