@@ -85,6 +85,8 @@ public class FmMainActivity extends Activity implements FmFavoriteEditDialog.Edi
     // RDS text view
     private TextView mTextRds = null;
 
+    private TextView mTextPi = null;
+
     private TextView mActionBarTitle = null;
 
     private TextView mNoEarPhoneTxt = null;
@@ -317,6 +319,12 @@ public class FmMainActivity extends Activity implements FmFavoriteEditDialog.Edi
                     bundle = msg.getData();
                     String rtString = bundle.getString(FmListener.KEY_RT_INFO);
                     mTextRds.setText(rtString);
+                    break;
+
+                case FmListener.LISTEN_PI_CHANGED:
+                    bundle = msg.getData();
+                    String piString = bundle.getString(FmListener.KEY_PI_INFO);
+                    mTextPi.setText(piString);
                     break;
 
                 case FmListener.LISTEN_SPEAKER_MODE_CHANGED:
@@ -601,6 +609,7 @@ public class FmMainActivity extends Activity implements FmFavoriteEditDialog.Edi
 
         String stationName = "";
         String radioText = "";
+        String piText = "";
         ContentResolver resolver = mContext.getContentResolver();
         Cursor cursor = null;
         try {
@@ -617,6 +626,7 @@ public class FmMainActivity extends Activity implements FmFavoriteEditDialog.Edi
                     stationName = cursor.getString(cursor.getColumnIndex(Station.PROGRAM_SERVICE));
                 }
                 radioText = cursor.getString(cursor.getColumnIndex(Station.RADIO_TEXT));
+                piText = cursor.getString(cursor.getColumnIndex(Station.PI_CODE));
 
             } else {
                 Log.d(TAG, "showPlayingNotification, cursor is null");
@@ -628,6 +638,7 @@ public class FmMainActivity extends Activity implements FmFavoriteEditDialog.Edi
         }
         mTextStationName.setText(stationName);
         mTextRds.setText(radioText);
+        mTextPi.setText(piText);
     }
 
     /**
@@ -1119,6 +1130,7 @@ public class FmMainActivity extends Activity implements FmFavoriteEditDialog.Edi
 
     private void initUiComponent() {
         mTextRds = (TextView) findViewById(R.id.station_rds);
+        mTextPi = (TextView) findViewById(R.id.station_pi_code);
         mTextStationValue = (TextView) findViewById(R.id.station_value);
         mButtonAddToFavorite = (ImageButton) findViewById(R.id.button_add_to_favorite);
         mTextStationName = (TextView) findViewById(R.id.station_name);

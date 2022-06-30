@@ -45,6 +45,7 @@ public class FmStation {
         Station.STATION_NAME,
         Station.PROGRAM_SERVICE,
         Station.RADIO_TEXT,
+        Station.PI_CODE,
     };
 
     /**
@@ -70,6 +71,12 @@ public class FmStation {
          * <P>Type: TEXT</P>
          */
         public static final String STATION_NAME = "station_name";
+
+        /**
+         * Program Identification(PI), 4 digit hex code provided by RDS station.
+         * <P>Type: TEXT</P>
+         */
+        public static final String PI_CODE = "pi_code";
 
         /**
          * Program service(PS), station name provide by RDS station
@@ -107,13 +114,18 @@ public class FmStation {
      * @param ps The program service
      * @param rt The radio text
      */
-    public static void insertStationToDb(
-            Context context, int frequency, String stationName, String ps, String rt) {
+    public static void insertStationToDb(Context context,
+                                         int frequency,
+                                         String stationName,
+                                         String ps,
+                                         String rt,
+                                         String pi) {
         ContentValues values = new ContentValues(4);
         values.put(Station.FREQUENCY, frequency);
         values.put(Station.STATION_NAME, stationName);
         values.put(Station.PROGRAM_SERVICE, ps);
         values.put(Station.RADIO_TEXT, rt);
+        values.put(Station.PI_CODE, pi);
         context.getContentResolver().insert(Station.CONTENT_URI, values);
     }
 

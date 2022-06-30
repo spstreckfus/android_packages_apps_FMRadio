@@ -42,7 +42,7 @@ public class FmProvider extends ContentProvider {
     // database name
     private static final String DATABASE_NAME = "FmRadio.db";
     // database version
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     // table name
     private static final String TABLE_NAME = "StationList";
 
@@ -90,7 +90,8 @@ public class FmProvider extends ContentProvider {
                             + FmStation.Station.IS_FAVORITE + " INTEGER DEFAULT 0,"
                             + FmStation.Station.STATION_NAME + " TEXT,"
                             + FmStation.Station.PROGRAM_SERVICE + " TEXT,"
-                            + FmStation.Station.RADIO_TEXT + " TEXT"
+                            + FmStation.Station.RADIO_TEXT + " TEXT,"
+                            + FmStation.Station.PI_CODE + " TEXT"
                             + ");"
                     );
         }
@@ -104,11 +105,20 @@ public class FmProvider extends ContentProvider {
          */
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            // TODO: reimplement this when dB version changes
             Log.i(TAG, "onUpgrade, upgrading database from version " + oldVersion + " to "
                     + newVersion + ", which will destroy all old data");
-            db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
-            onCreate(db);
+            // TODO: Make this more flexible
+            if (oldVersion == 1 && newVersion == 2) {
+                migrateVersion1To2(db);
+            } else {
+                db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+                onCreate(db);
+            }
+        }
+
+        private void migrateVersion1To2(SQLiteDatabase db) {
+            db.execSQL("ALTER TABLE " + TABLE_NAME + " ADD COLUMN "
+                       + FmStation.Station.PI_CODE + " TEXT");
         }
     }
 
