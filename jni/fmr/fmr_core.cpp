@@ -250,6 +250,18 @@ int FMR_get_rt(int idx, uint8_t **rt, int *rt_len)
     return ret;
 }
 
+int FMR_get_pi(int idx, uint16_t *pi)
+{
+    int ret = 0;
+
+    FMR_ASSERT(FMR_cbk_tbl(idx).get_pi);
+    FMR_ASSERT(pi);
+
+    ret = FMR_cbk_tbl(idx).get_pi(FMR_fd(idx), &fmr_data.rds, pi);
+    LOGD("%s, [ret=%d]\n", __func__, ret);
+    return ret;
+}
+
 int FMR_tune(int idx, int freq)
 {
     int ret = 0;

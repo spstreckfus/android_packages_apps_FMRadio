@@ -47,6 +47,9 @@ public interface FmListener {
     // FM Record state changed
     int LISTEN_SPEAKER_MODE_CHANGED = 0x00101000; // 1052672
 
+    // FM PI information changed
+    int LISTEN_PI_CHANGED = 0x00101001;
+
     // Bundle keys
     String SWITCH_ANTENNA_VALUE = "switch_antenna_value";
     String CALLBACK_FLAG = "callback_flag";
@@ -60,6 +63,7 @@ public interface FmListener {
     String KEY_PS_INFO = "key_ps_info";
     String KEY_RT_INFO = "key_rt_info";
     String KEY_STATION_NUM = "key_station_num";
+    String KEY_PI_INFO = "key_pi_info";
 
     // Audio focus related
     String KEY_AUDIOFOCUS_CHANGED = "key_audiofocus_changed";

@@ -194,6 +194,20 @@ jbyteArray getLrText(JNIEnv *env, jobject thiz)
     return LastRadioText;
 }
 
+jshort getPi(JNIEnv *env, jobject thiz)
+{
+    int ret = 0;
+    jshort ret_pi;
+
+    ret = FMR_get_pi(g_idx, (uint16_t*)&ret_pi);
+    if (ret) {
+        LOGE("%s, error, [ret=%d]\n", __func__, ret);
+        return 0;
+    }
+    LOGD("%s, [ret=%d]\n", __func__, ret);
+    return ret_pi;
+}
+
 jshort activeAf(JNIEnv *env, jobject thiz)
 {
     int ret = 0;

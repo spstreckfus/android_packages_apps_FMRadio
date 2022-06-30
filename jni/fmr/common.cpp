@@ -577,6 +577,7 @@ void FM_interface_init(struct fm_cbk_tbl *cbk_tbl)
     cbk_tbl->read_rds_data = COM_read_rds_data;
     cbk_tbl->get_ps = COM_get_ps;
     cbk_tbl->get_rt = COM_get_rt;
+    cbk_tbl->get_pi = COM_get_pi;
     cbk_tbl->active_af = COM_active_af;
     //FM short antenna
     cbk_tbl->ana_switch = COM_ana_switch;

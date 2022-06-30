@@ -87,11 +87,22 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
                 android:alpha="0.87"
-                android:ellipsize="marquee"
+                android:ellipsize="none"
                 android:gravity="left"
-                android:marqueeRepeatLimit="marquee_forever"
                 android:paddingLeft="16dip"
-                android:singleLine="true"
+                android:textColor="@color/white_color"
+                android:textSize="@dimen/station_rds_size" />
+
+            <TextView
+                android:id="@+id/station_pi_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:alpha="0.87"
+                android:ellipsize="none"
+                android:gravity="left"
+                android:paddingLeft="16dip"
                 android:textColor="@color/white_color"
                 android:textSize="@dimen/station_rds_size" />
 

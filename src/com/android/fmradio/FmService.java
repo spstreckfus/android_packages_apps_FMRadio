@@ -129,6 +129,8 @@ public class FmService extends Service implements FmRecorder.OnRecorderStateChan
     private static String sRecordingSdcard = FmUtils.getDefaultStoragePath();
 
     // RDS
+    // PI String
+    private String mPiString = "";
     // PS String
     private String mPsString = "";
     // RT String
@@ -1572,6 +1574,27 @@ public class FmService extends Service implements FmRecorder.OnRecorderStateChan
                             }
                             setPs(ps);
                         }
+
+                        short piCode = FmNative.getPiCode();
+                        if (0 != piCode) {
+                            // short is 16 bits, so account for the difference with 0xffff
+                            String pi = Integer.toHexString(piCode & 0xffff);
+                            if (!mPiString.equals(pi)) {
+                                updatePlayingNotification();
+                            }
+                            ContentValues values = null;
+                            if (FmStation.isStationExist(mContext, mCurrentStation)) {
+                                values = new ContentValues(1);
+                                values.put(Station.PI_CODE, pi);
+                                FmStation.updateStationToDb(mContext, mCurrentStation, values);
+                            } else {
+                                values = new ContentValues(2);
+                                values.put(Station.FREQUENCY, mCurrentStation);
+                                values.put(Station.PI_CODE, pi);
+                                FmStation.insertStationToDb(mContext, values);
+                            }
+                            setPi(pi);
+                        }
                     }
 
                     if (RDS_EVENT_LAST_RADIOTEXT == (RDS_EVENT_LAST_RADIOTEXT & iRdsEvents)) {
@@ -1672,6 +1695,21 @@ public class FmService extends Service implements FmRecorder.OnRecorderStateChan
             bundle.putString(FmListener.KEY_RT_INFO, mRtTextString);
             notifyActivityStateChanged(bundle);
         } // else New RT is the same as current
+    }
+
+    /**
+     * Set PI information
+     *
+     * @param piText The PI information
+     */
+    private void setPi(String piText) {
+        if (0 != mPiString.compareTo(piText)) {
+            mPiString = piText;
+            Bundle bundle = new Bundle(3);
+            bundle.putInt(FmListener.CALLBACK_FLAG, FmListener.LISTEN_PI_CHANGED);
+            bundle.putString(FmListener.KEY_PI_INFO, mPiString);
+            notifyActivityStateChanged(bundle);
+        } // else New PI is the same as current
     }
 
     /**

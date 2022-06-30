@@ -121,6 +121,13 @@ public class FmNative {
     static native byte[] getLrText();
 
     /**
+     * Get program identifier (4 digit hex code)
+     *
+     * @return The PI Code (Last Radio Text) bytes
+     */
+    static native short getPiCode();
+
+    /**
      * Active alternative frequencies
      *
      * @return The frequency(float)

@@ -113,6 +113,7 @@ struct fm_cbk_tbl {
     int (*read_rds_data)(int fd, RDSData_Struct *rds, uint16_t *rds_status);
     int (*get_ps)(int fd, RDSData_Struct *rds, uint8_t **ps, int *ps_len);
     int (*get_rt)(int fd, RDSData_Struct *rds, uint8_t **rt, int *rt_len);
+    int (*get_pi)(int fd, RDSData_Struct *rds, uint16_t *pi);
     int (*active_af)(int fd, RDSData_Struct *rds, int band, uint16_t cur_freq, uint16_t *ret_freq);
     //FM long/short antenna switch
     int (*ana_switch)(int fd, int antenna);
@@ -201,6 +202,7 @@ int FMR_read_rds_data(int idx, uint16_t *rds_status);
 int FMR_get_ps(int idx, uint8_t **ps, int *ps_len);
 int FMR_get_rssi(int idx, int *rssi);
 int FMR_get_rt(int idx, uint8_t **rt, int *rt_len);
+int FMR_get_pi(int idx, uint16_t *pi);
 int FMR_active_af(int idx, uint16_t *ret_freq);
 
 int FMR_ana_switch(int idx, int antenna);
@@ -224,6 +226,7 @@ int COM_get_chip_id(int fd, int *chipid);
 int COM_read_rds_data(int fd, RDSData_Struct *rds, uint16_t *rds_status);
 int COM_get_ps(int fd, RDSData_Struct *rds, uint8_t **ps, int *ps_len);
 int COM_get_rt(int fd, RDSData_Struct *rds, uint8_t **rt, int *rt_len);
+int COM_get_pi(int fd, RDSData_Struct *rds, uint16_t *pi);
 int COM_active_af(int fd, RDSData_Struct *rds, int band, uint16_t cur_freq, uint16_t *ret_freq);
 
 int COM_ana_switch(int fd, int antenna);
